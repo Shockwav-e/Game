@@ -145,6 +145,26 @@ class PokemonChess {
       this.handleSquareClick(row, col);
     });
 
+    // Add touch handling
+    board.addEventListener(
+      "touchstart",
+      (e) => {
+        e.preventDefault(); // Prevent scrolling
+        if (this.gameOver) return;
+
+        const touch = e.touches[0];
+        const square = document
+          .elementFromPoint(touch.clientX, touch.clientY)
+          .closest(".square");
+        if (!square) return;
+
+        const row = parseInt(square.dataset.row);
+        const col = parseInt(square.dataset.col);
+        this.handleSquareClick(row, col);
+      },
+      { passive: false }
+    );
+
     // Buttons (two sets for different places)
     document
       .getElementById("new-game-btn")
@@ -513,23 +533,51 @@ class PokemonChess {
     return null;
   }
 
+  showGameOverScreen(winner) {
+    const overlay = document.querySelector(".game-over-overlay");
+    const winnerText = overlay.querySelector(".winner-text");
+
+    // Set winner text
+    if (this.checkmate) {
+      winnerText.textContent = `${winner} wins by checkmate!`;
+    } else {
+      winnerText.textContent = "It's a draw by stalemate!";
+    }
+
+    // Show overlay with animation
+    requestAnimationFrame(() => {
+      overlay.classList.add("visible");
+    });
+
+    // Setup play again button
+    const playAgainBtn = overlay.querySelector(".play-again");
+    playAgainBtn.onclick = () => {
+      overlay.classList.remove("visible");
+      this.newGame();
+    };
+  }
+
   checkGameState() {
     const kingPosition = this.findKing(this.currentPlayer);
     if (!kingPosition) {
       this.gameOver = true;
+      const winner = this.currentPlayer === "white" ? "Black" : "White";
+      this.showGameOverScreen(winner);
       return;
     }
+
     this.inCheck = this.isSquareUnderAttack(kingPosition.row, kingPosition.col);
 
     if (this.inCheck) {
       if (!this.hasValidMoves()) {
         this.checkmate = true;
         this.gameOver = true;
+        const winner = this.currentPlayer === "white" ? "Black" : "White";
+        this.showGameOverScreen(winner);
       }
-    } else {
-      if (!this.hasValidMoves()) {
-        this.gameOver = true; // stalemate
-      }
+    } else if (!this.hasValidMoves()) {
+      this.gameOver = true;
+      this.showGameOverScreen("Nobody"); // Stalemate
     }
   }
 

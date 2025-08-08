@@ -1,36 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pokémon Chess</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <div class="page-bg"></div>
 
-    <main class="game-container">
+    <div class="game-container">
       <header class="game-header">
         <div class="title-row">
-          <img
-            src="images/pokemon_bg.jpg"
-            alt=""
-            class="logo-bg"
-            aria-hidden="true"
-          />
+          <img src="images/pokemon_bg.jpg" alt="" class="logo-bg" />
           <h1>Pokémon Chess</h1>
         </div>
 
         <div class="game-info">
           <div class="current-player">
-            <span>Current Player</span>
+            <span>Current Turn</span>
             <strong id="current-player">White</strong>
           </div>
-
           <div class="game-status">
             <span id="game-status">Game in progress</span>
           </div>
-
           <div class="controls-compact">
             <button id="new-game-btn" class="primary">New Game</button>
             <button id="reset-btn" class="ghost">Reset</button>
@@ -38,13 +31,13 @@
         </div>
       </header>
 
-      <section class="center-area">
+      <div class="center-area">
         <div class="board-wrap">
           <div
-            class="chess-board"
             id="chess-board"
+            class="chess-board"
             role="grid"
-            aria-label="Chess board"
+            aria-label="chess board"
           ></div>
           <img
             class="board-gloss"
@@ -69,19 +62,22 @@
           </div>
 
           <footer class="panel-footer">
-            Curated by <strong>Your Handle</strong> • Pokémon theme
+            Created by <strong>Your Handle</strong> • Pokémon theme
           </footer>
         </aside>
-      </section>
-    </main>
+      </div>
+    </div>
+
+    <div class="game-over-overlay">
+      <div class="game-over-content">
+        <h2>Game Over!</h2>
+        <p class="winner-text"></p>
+        <button class="play-again">Play Again</button>
+      </div>
+    </div>
 
     <div id="preload" aria-hidden="true" style="display: none"></div>
 
-    <script src="script.js" defer></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        window.game = new PokemonChess();
-      });
-    </script>
+    <script src="script.js"></script>
   </body>
 </html>
