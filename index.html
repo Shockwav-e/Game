@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Pokémon Chess</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page-bg"></div>
+
+    <main class="game-container">
+      <header class="game-header">
+        <div class="title-row">
+          <img
+            src="images/pokemon_bg.jpg"
+            alt=""
+            class="logo-bg"
+            aria-hidden="true"
+          />
+          <h1>Pokémon Chess</h1>
+        </div>
+
+        <div class="game-info">
+          <div class="current-player">
+            <span>Current Player</span>
+            <strong id="current-player">White</strong>
+          </div>
+
+          <div class="game-status">
+            <span id="game-status">Game in progress</span>
+          </div>
+
+          <div class="controls-compact">
+            <button id="new-game-btn" class="primary">New Game</button>
+            <button id="reset-btn" class="ghost">Reset</button>
+          </div>
+        </div>
+      </header>
+
+      <section class="center-area">
+        <div class="board-wrap">
+          <div
+            class="chess-board"
+            id="chess-board"
+            role="grid"
+            aria-label="Chess board"
+          ></div>
+          <img
+            class="board-gloss"
+            src="images/board-gloss.png"
+            alt=""
+            aria-hidden="true"
+          />
+        </div>
+
+        <aside class="side-panel">
+          <div class="panel-section">
+            <h3>Move History</h3>
+            <div id="move-list" class="move-list"></div>
+          </div>
+
+          <div class="panel-section">
+            <h3>Quick Controls</h3>
+            <div class="game-controls">
+              <button id="new-game-btn-2" class="primary">New Game</button>
+              <button id="reset-btn-2" class="ghost">Reset</button>
+            </div>
+          </div>
+
+          <footer class="panel-footer">
+            Curated by <strong>Your Handle</strong> • Pokémon theme
+          </footer>
+        </aside>
+      </section>
+    </main>
+
+    <div id="preload" aria-hidden="true" style="display: none"></div>
+
+    <script src="script.js" defer></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        window.game = new PokemonChess();
+      });
+    </script>
+  </body>
+</html>
